@@ -6,8 +6,6 @@ from django.db.models import signals
 from django.template.loader import render_to_string
 from django.core.files.base import ContentFile
 
-from socialschools.settings.s3storage import PublicMediaS3BotoStorage
-
 from tasks import compile_less
 
 class Theme(models.Model):
@@ -18,14 +16,13 @@ class Theme(models.Model):
         filename = filename.split('.')
         extension = filename.pop()
         name = ''.join(filename)
-        return "themes/%s/%s.%s" % (self.organization.pk, slugify(unicode(name)), extension)
+        return "themes/%s.%s" % (slugify(unicode(name)), extension)
 
     name = models.CharField(max_length=250)
-    organization = models.OneToOneField('profiles.BaseOrganizationalUnit')
     theme_color = models.CharField(max_length=7)
-    background_image = models.ImageField(storage=PublicMediaS3BotoStorage(), upload_to=get_upload_path, blank=True)
-    less_file = models.FileField(storage=PublicMediaS3BotoStorage(), upload_to=get_upload_path, blank=True)
-    compiled_css_file = models.FileField(storage=PublicMediaS3BotoStorage(), upload_to=get_upload_path, blank=True)
+    background_image = models.ImageField(upload_to=get_upload_path, blank=True)
+    less_file = models.FileField(upload_to=get_upload_path, blank=True)
+    compiled_css_file = models.FileField(upload_to=get_upload_path, blank=True)
 
     def __unicode__(self):
         return self.name
