@@ -1,0 +1,27 @@
+{% extends "home.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% block timeline %}
+<div class="css-content-white">
+    <h3 class="content-header">{% trans 'Edit theme' %}</h3>
+    <hr>
+    <form class="form-horizontal" enctype="multipart/form-data" action="{{ view.request.get_full_path }}" method="post">{% csrf_token %}
+        {% for field in form %}
+            {% include 'includes/forms/field_horizontal.html' %}
+        {% endfor %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success btn-large">{% trans 'Submit' %}</button>
+            <span class="form-cancel"> {% trans 'or' %} <a href="">{% trans 'Cancel' %}</a></span>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}
+    <script>
+        $('.colorpicker').colorpicker()
+    </script>
+{% endblock %}

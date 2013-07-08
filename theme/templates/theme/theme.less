@@ -1,0 +1,60 @@
+{% load staticfiles %}
+
+@import "{% static 'socialschools/css/styles.less' %}";
+
+@themeColor: {{ instance.theme_color}};
+@backgroundImage: "{{ instance.background_image.url }}";
+
+body {
+    background-color: @themeColor;
+    background: url(@backgroundImage) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+/* Bootstrap icons are overwritten to fix relative path issues with custom themes */
+@iconSpritePath:          "{% static 'socialschools/css/img/glyphicons-halflings.png' %}";
+@iconWhiteSpritePath:     "{% static 'socialschools/css/img/glyphicons-halflings-white.png' %}";
+
+.colorpicker-alpha, .colorpicker-color {
+    background-image: url("{% static 'socialschools/img/bootstrap-colorpicker/alpha.png' %}")
+}
+
+.colorpicker-hue {
+    background-image: url("{% static 'socialschools/img/bootstrap-colorpicker/hue.png' %}");
+}
+
+.colorpicker-saturation {
+    background-image: url("{% static 'socialschools/img/bootstrap-colorpicker/saturation.png' %}");
+}
+.modal-loading .modal-image {
+    background: url("{% static 'socialschools/css/img/loading.gif' %}") center no-repeat;
+}
+
+/* Plugin select2 related stuff */
+
+@select2Png :    "{% static 'socialschools/css/select2.png' %}";
+@select2Spinner: "{% static 'socialschools/css/select2-spinner.gif' %}";
+
+.select2-container .select2-choice abbr, .select2-search-choice-close {
+    background: url(@select2Png) right top no-repeat;
+}
+.select2-container .select2-choice div b {
+    background: url(@select2Png) no-repeat 0 1px;
+}
+.select2-search input {
+    background: #fff url(@select2Png) no-repeat 100% -22px;
+}
+
+.select2-more-results.select2-active {
+    background: #f4f4f4 url(@select2Spinner) no-repeat 100%;
+}
+.select2-container-multi .select2-choices .select2-search-field input.select2-active {
+    background: #fff url(@select2Spinner) no-repeat 100% !important;
+}
+.select2-search input.select2-active {
+    background: #fff url(@select2Spinner) no-repeat 100%;
+}
